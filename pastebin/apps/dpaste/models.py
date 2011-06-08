@@ -4,12 +4,13 @@ import random
 import mptt
 import re
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from pastebin.apps.dpaste.highlight import LEXER_DEFAULT, pygmentize
 
 t = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'
-def generate_secret_id(length=4):
+def generate_secret_id(length=3):
     return ''.join([random.choice(t) for i in range(length)])
 
 class Snippet(models.Model):
@@ -36,12 +37,12 @@ class Snippet(models.Model):
         if not self.pk:
             self.published = datetime.datetime.now()
             self.secret_id = generate_secret_id()
-        self.content_highlighted = pygmentize(self.content, self.lexer)
-        return super(Snippet, self).save(*args, **kwargs)
+        #self.content_highlighted = pygmentize(self.content, self.lexer)
+        self.content_highlighted = self.content
+        super(Snippet, self).save(*args, **kwargs)
 
-    @permalink
     def get_absolute_url(self):
-        return ('snippet_details', (self.secret_id,))
+        return reverse('snippet_details', kwargs={'snippet_id': self.secret_id})
 
     def __unicode__(self):
         return '%s' % self.secret_id
