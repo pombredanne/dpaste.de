@@ -1,0 +1,15 @@
+[run]
+source = dpaste
+branch = True
+omit =
+    dpaste/migrations/*
+    dpaste/tests/*
+    dpaste/settings/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+
+[html]
+directory = /tmp/coverage_html_report

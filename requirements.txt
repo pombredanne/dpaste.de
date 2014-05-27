@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------------
+# These requirements are only required for local testing or development.
+# To use dpaste it's enough to install the package, all, and only the
+# necessary dependencies are installed automatically.
+# -----------------------------------------------------------------------------
+
+# Project dependencies
+django==1.6.1
+django-mptt==0.6.0
+pygments==1.6
+requests==2.0.0
+
+# Testing
+python-coveralls==2.4.0
+coverage==3.7
+tox==1.6.1
+docutils==0.11
+sphinx==1.2
+sphinx_rtd_theme
+
+# Deployment specific
+django-redis==3.3
+gunicorn==18.0
+south==0.8.2
+newrelic
